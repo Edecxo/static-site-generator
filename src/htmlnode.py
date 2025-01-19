@@ -1,3 +1,5 @@
+from textnode import TextType
+
 class HTMLNode():
     def __init__(self, tag=None, value=None, children=None, props=None):
         self.tag = tag #html tag (e.g. "p", "a", "h1", etc.)
@@ -33,6 +35,8 @@ class LeafNode(HTMLNode):
         if self.tag != None:
             open_tag = f"<{self.tag}>"
             close_tag = f"</{self.tag}>"
+        if self.tag in ("a", "img"):
+            open_tag = f"<{self.tag}{self.props_to_html()}>"
         return f"{open_tag}{self.value}{close_tag}"
     
     def __eq__(self, other):
