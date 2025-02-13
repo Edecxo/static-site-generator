@@ -8,7 +8,15 @@ class HTMLNode():
         self.props = props #dict representing attribute of the html tag (e.x. <a> might have {"href": "https://google.com"}
     
     def to_html(self):
-        raise NotImplementedError
+        open_tag = ""
+        close_tag = ""
+        children_html = ""
+        for child in self.children:
+            children_html += child.to_html()
+        if self.tag != None:
+            open_tag = f"<{self.tag}>"
+            close_tag = f"</{self.tag}>"
+        return f"{open_tag}{children_html}{close_tag}"
 
     def props_to_html(self):
         html_string = "".join([f' {k}="{self.props[k]}"' for k in self.props])

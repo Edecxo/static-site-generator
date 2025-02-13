@@ -205,7 +205,7 @@ def markdown_to_blocks(markdown):
 def block_to_block_type(block):
     import re
 
-    heading = re.compile("^#{1,6} .*")
+    heading = re.compile("^#{1,6}\s+.*")
     code = re.compile("^```[\s\S]*```$")
     quote = re.compile("^(>(.*)?\n?)+$")
     unordered_list = re.compile("^([*-] .*?\n?)+$")
@@ -236,7 +236,7 @@ def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
     for block in blocks:
 
-        if block_to_block_type(markdown) == "heading":
+        if block_to_block_type(block) == "heading":
             block_parts = block.split()
             tag = block_parts[0]
             val = " ".join(block_parts[1:])
@@ -268,9 +268,9 @@ def markdown_to_html_node(markdown):
             parent.children.append(node)
 
         elif block_to_block_type(block) == "quote":
-            val = "\n".join(map(lambda x: x.lstrip(">"), block.split("\n")))
+            val = "\n".join(map(lambda x: x.lstrip("> "), block.split("\n")))
             children = text_to_children(val)
-            node = HTMLNode("q", None, children)
+            node = HTMLNode("blockquote", None, children)
             parent.children.append(node)
 
         else:

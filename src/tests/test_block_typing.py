@@ -109,3 +109,9 @@ class BlockTypeTest(unittest.TestCase):
         expected = "paragraph"
         actual = block_to_block_type(markdown)
         self.assertEqual(expected, actual)
+
+    def test_inline_bold(self):
+        markdown = "**I like cheese** and bread"
+        expected = "paragraph"
+        actual = block_to_block_type(markdown)
+        self.assertEqual(expected, actual)

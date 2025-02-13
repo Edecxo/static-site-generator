@@ -1,9 +1,13 @@
 from textnode import TextNode, TextType
 import os
 import shutil
+from html_helpers import generate_pages_recursively
 
 def main():
-    copy_files("/home/hunter/workspace/github.com/Edecxo/static-site-generator/static", "/home/hunter/workspace/github.com/Edecxo/static-site-generator/public")
+    source = "/home/hunter/workspace/github.com/Edecxo/static-site-generator/static"
+    destination = "/home/hunter/workspace/github.com/Edecxo/static-site-generator/public"
+    copy_files(source, destination)
+    generate_pages_recursively("/home/hunter/workspace/github.com/Edecxo/static-site-generator/content", "/home/hunter/workspace/github.com/Edecxo/static-site-generator/template.html", "/home/hunter/workspace/github.com/Edecxo/static-site-generator/public")
 
 def copy_files(source, destination):
     if not os.path.exists(source) or os.path.isfile(source):
